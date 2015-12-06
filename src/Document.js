@@ -54,4 +54,4 @@ class Document {
   }
 }
 
-exports.Document = Document
+module.exports = Document

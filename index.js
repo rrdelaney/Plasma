@@ -1,1 +1,1 @@
-module.exports = require('./src/Large')
+exports.Document = require('./src/Document')
