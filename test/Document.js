@@ -19,6 +19,10 @@ describe('Document', () => {
     return t.initialized
     .then(() => Test.find())
     .then(res => res.toArray())
+    .then(res => {
+      Test.close()
+      return res
+    })
     .should.eventually.have.length(1)
     .and.have.property(0)
     .that.has.property('test').that.is.true
@@ -28,6 +32,10 @@ describe('Document', () => {
   it('should query documents', done => {
     return Test.find()
     .then(res => res.toArray())
+    .then(res => {
+      Test.close()
+      return res
+    })
     .should.eventually.have.length(1)
     .and.have.property(0)
     .that.has.property('test').that.is.true

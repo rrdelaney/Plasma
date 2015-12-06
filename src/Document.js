@@ -1,13 +1,11 @@
 'use strict'
 
-var _connection = require('./connection')
-var connection = _connection.connection
-var shutdown = _connection.shutdown
+var MongoClient = require('mongodb').MongoClient
 
 class Document {
   constructor (doc, _schema) {
     this.collectionName = this.constructor.name.toLowerCase()
-    this.dbURL = this.constructor.settings.url
+    this.connection = this.constructor.connection
     this._schema = _schema || []
 
     if (doc) {
@@ -16,7 +14,7 @@ class Document {
         this._schema.push(key)
       })
 
-      this.initialized = connection(this.dbURL)
+      this.initialized = this.connection()
         .then(db => db.collection(this.collectionName))
         .then(col => col.insertOne(doc))
         .then(res => this._id = res.insertedId)
@@ -27,16 +25,35 @@ class Document {
     var updates = {}
     this._schema.forEach(key => updates[key] = this[key])
 
-    return connection(this.dbURL)
-      .then(db => db.collection(this.collectionName))
+    return this.connection()
+      .then(db => db.collection())
       .then(col => col.updateOne(
         { _id: this._id },
         { $set: updates }
       ))
   }
 
+  static connection () {
+    var dbURL = (this.settings || this.constructor.settings).url
+
+    return new Promise((resolve, reject) => {
+      if (Document._dbCache) {
+        resolve(Document._dbCache)
+      } else {
+        MongoClient.connect(dbURL, (err, db) => {
+          if (err) {
+            reject(err)
+          } else {
+            Document._dbCache = db
+            resolve(db)
+          }
+        })
+      }
+    })
+  }
+
   static db () {
-    return connection(this.settings.url)
+    return this.connection()
   }
 
   static collection () {
@@ -50,7 +67,10 @@ class Document {
   }
 
   static close () {
-    shutdown()
+    if (Document._dbCache) {
+      Document._dbCache.close()
+      Document._dbCache = null
+    }
   }
 }
 
