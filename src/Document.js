@@ -3,22 +3,20 @@
 var MongoClient = require('mongodb').MongoClient
 
 class Document {
-  constructor (doc, _schema) {
+  constructor (doc) {
     this.collectionName = this.constructor.name.toLowerCase()
     this.connection = this.constructor.connection
-    this._schema = _schema || []
+    this._schema = []
 
-    if (doc) {
-      Object.keys(doc).forEach(key => {
-        this[key] = doc[key]
-        this._schema.push(key)
-      })
+    Object.keys(doc).forEach(key => {
+      this[key] = doc[key]
+      this._schema.push(key)
+    })
 
-      this.initialized = this.connection()
-        .then(db => db.collection(this.collectionName))
-        .then(col => col.insertOne(doc))
-        .then(res => this._id = res.insertedId)
-    }
+    return this.initialized = this.connection()
+      .then(db => db.collection(this.collectionName))
+      .then(col => col.insertOne(doc))
+      .then(res => { this._id = res.insertedId; return this })
   }
 
   save () {
@@ -61,9 +59,18 @@ class Document {
       .then(db => db.collection(this.name.toLowerCase()))
   }
 
-  static find (q) {
+  static find (q, mod) {
     return this.collection()
-      .then(col => col.find(q || {}))
+      .then(col =>
+        Object.keys(mod || {}).reduce((query, key) =>
+          query[key](mod[key])
+        , col.find(q || {}))
+      )
+      .then(results => results.toArray())
+      .then(docs => docs.map(doc => {
+        Object.keys(doc).forEach(key => doc[key] = { value: doc[key] })
+        return Object.create(this.prototype, doc)
+      }))
   }
 
   static close () {

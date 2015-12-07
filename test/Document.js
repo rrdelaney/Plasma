@@ -14,32 +14,28 @@ describe('Document', () => {
   before(dropDatabase(settings.url))
 
   it('should create new documents with the constructor', done => {
-    var t = new Test({ test: true })
-
-    return t.initialized
-    .then(() => Test.find())
-    .then(res => res.toArray())
-    .then(res => {
-      Test.close()
-      return res
-    })
-    .should.eventually.have.length(1)
-    .and.have.property(0)
-    .that.has.property('test').that.is.true
-    .notify(done)
+    return new Test({ test: true })
+      .then(() => Test.find())
+      .then(res => {
+        Test.close()
+        return res
+      })
+      .should.eventually.have.length(1)
+      .and.have.property(0)
+      .that.has.property('test').that.is.true
+      .notify(done)
   })
 
   it('should query documents', done => {
     return Test.find()
-    .then(res => res.toArray())
-    .then(res => {
-      Test.close()
-      return res
-    })
-    .should.eventually.have.length(1)
-    .and.have.property(0)
-    .that.has.property('test').that.is.true
-    .notify(done)
+      .then(res => {
+        Test.close()
+        return res
+      })
+      .should.eventually.have.length(1)
+      .and.have.property(0)
+      .that.has.property('test').that.is.true
+      .notify(done)
   })
 
   it('should update documents')

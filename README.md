@@ -1,5 +1,5 @@
 # large
-ES2015 for Mongo
+ES2015 for Mongo with Promises!
 
 # Example
 
@@ -24,14 +24,11 @@ module.exports = Person
 
 var Person = require('./Person')
 
+// ES6
+new Person('ryan', 20)
+  .then(ryan => ryan.age = 21)
+  .then(ryan => ryan.save())
 
-var ryan = new Person('ryan', 20)
-
-ryan.initialized
-.then(() => ryan.age = 21)
-.then(() => ryan.save())
-.then(() => Person.find())
-.then(res => res.toArray())
-.then(res => console.log(res)) // [ {_id: ..., name: 'ryan', age: 21}]
-.then(() => Person.close())
+Person.find({ name: 'ryan' })
+  .then(people => console.log(people))
 ```
