@@ -1,0 +1,10 @@
+@import "../vars.css";
+
+.button {
+  background-color: var(--primary);
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Raleway';
+  padding: .5rem;
+}

@@ -25,7 +25,7 @@ let baseConfig = {
         exclude: /node_modules/
       }, {
         test: /.css$/,
-        loader: 'style!css?modules',
+        loader: 'style!css?modules!postcss',
         exclude: 'node_modules'
       }, {
         test: /.json$/,
@@ -35,8 +35,12 @@ let baseConfig = {
   },
   resolve: {
     extensions: ['', '.jsx', '.js', '.json'],
-    modulesDirectories: ['node_modules']
-  }
+    modulesDirectories: ['node_modules', 'lib']
+  },
+  postcss: () => [
+    require('postcss-custom-properties')(),
+    require('postcss-import')()
+  ]
 }
 
 function makeDevelopment (config) {
@@ -60,8 +64,6 @@ function makeDevelopment (config) {
 }
 
 function makeProduction (config) {
-  // config.module.loaders[1].loader = ExtractTextPlugin('style-loader', 'css-loader?modules') // Hacky
-
   return extend(config, {
     plugins: [
       new webpack.optimize.UglifyJsPlugin({

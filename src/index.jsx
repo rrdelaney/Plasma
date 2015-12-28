@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Button } from './quanta'
+import { Button } from 'quanta'
 
 class Page extends Component {
   render () {
