@@ -4,7 +4,7 @@ let gulp = require('gulp')
 let webpack = require('webpack')
 let gutil = require('gulp-util')
 let devServer = require('./devServer')
-let config = require('./webpack.config')
+let config = require('./makeWebpackConfig')
 
 gulp.task('debug', function (cb) {
 	devServer(config('debug'))
