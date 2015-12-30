@@ -38,8 +38,10 @@ let baseConfig = {
     modulesDirectories: ['node_modules', 'lib']
   },
   postcss: () => [
+    require('autoprefixer')(),
+    require('postcss-import')(),
     require('postcss-custom-properties')(),
-    require('postcss-import')()
+    require('postcss-color-function')()
   ]
 }
 

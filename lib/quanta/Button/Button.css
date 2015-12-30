@@ -1,10 +1,53 @@
 @import "../vars.css";
 
+:root {
+  --button-depth: .2rem;
+}
+
 .button {
   background-color: var(--primary);
-  color: black;
+  border-radius: .5rem .5rem .4rem .4rem;
+  border-bottom: solid var(--button-depth) color(var(--primary) blackness(50%));
+  color: white;
   cursor: pointer;
   display: inline-block;
   font-family: 'Raleway';
   padding: .5rem;
+  user-select: none;
+}
+
+.button:hover {
+  border-bottom: initial;
+  margin-top: var(--button-depth);
+}
+
+.button:active {
+  background-color: color(var(--primary) blackness(50%));
+}
+
+.success {
+  background-color: var(--success);
+  border-bottom-color: color(var(--success) blackness(50%));
+}
+
+.success:active {
+  background-color: color(var(--success) blackness(50%));
+}
+
+.fail {
+  background-color: var(--fail);
+  border-bottom-color: color(var(--fail) blackness(50%));
+}
+
+.fail:active {
+  background-color: color(var(--fail) blackness(50%));
+}
+
+.warn {
+  background-color: var(--warn);
+  border-bottom-color: color(var(--warn) blackness(50%));
+}
+
+.warn:active {
+  background-color: color(var(--warn) blackness(50%));
 }

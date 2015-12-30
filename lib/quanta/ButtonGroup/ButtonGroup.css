@@ -1,0 +1,22 @@
+.buttonGroup :hover {
+  display: inline;
+  padding-bottom: calc(attr(padding-bottom) + .2rem);
+}
+
+.buttonGroup :first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.buttonGroup :not(:last-child) {
+  border-right: 1px solid white;
+}
+
+.buttonGroup :not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.buttonGroup :last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

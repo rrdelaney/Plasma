@@ -1,3 +1,6 @@
 :root {
   --primary: rgb(33, 133, 189);
+  --success: rgb(66, 179, 80);
+  --fail: rgb(171, 38, 38);
+  --warn: rgb(134, 116, 0);
 }

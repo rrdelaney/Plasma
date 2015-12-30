@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Button } from 'quanta'
+import { Button, ButtonGroup } from 'quanta'
 
 class Page extends Component {
+  onClick () {
+    alert('clicked!')
+  }
+
   render () {
-    return <Button>Hello!</Button>
+    return <ButtonGroup>
+      <Button>Hello, its me</Button>
+      <Button>Hello, its you</Button>
+      <Button>Hello, its who?</Button>
+    </ButtonGroup>
   }
 }
 
