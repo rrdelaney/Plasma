@@ -1,9 +1,5 @@
 @import "../vars.css";
 
-:root {
-  --button-depth: .2rem;
-}
-
 .button {
   background-color: var(--primary);
   border-radius: .5rem .5rem .4rem .4rem;
@@ -17,8 +13,12 @@
 }
 
 .button:hover {
-  border-bottom: initial;
   margin-top: var(--button-depth);
+  border-bottom-width: 0;
+}
+
+.button:hover:not(:active) {
+  border-bottom-color: var(--primary);
 }
 
 .button:active {
@@ -30,6 +30,10 @@
   border-bottom-color: color(var(--success) blackness(50%));
 }
 
+.success:hover:not(:active) {
+  border-bottom-color: var(--success);
+}
+
 .success:active {
   background-color: color(var(--success) blackness(50%));
 }
@@ -39,6 +43,10 @@
   border-bottom-color: color(var(--fail) blackness(50%));
 }
 
+.fail:hover:not(:active) {
+  border-bottom-color: var(--fail);
+}
+
 .fail:active {
   background-color: color(var(--fail) blackness(50%));
 }
@@ -46,6 +54,10 @@
 .warn {
   background-color: var(--warn);
   border-bottom-color: color(var(--warn) blackness(50%));
+}
+
+.warn:hover:not(:active) {
+  border-bottom-color: var(--warn);
 }
 
 .warn:active {

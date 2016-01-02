@@ -9,9 +9,9 @@ class Page extends Component {
 
   render () {
     return <ButtonGroup>
-      <Button>Hello, its me</Button>
-      <Button>Hello, its you</Button>
-      <Button>Hello, its who?</Button>
+      <Button type="success">Hello, its me</Button>
+      <Button type="fail">Hello, its you</Button>
+      <Button type="warn">Hello, its who</Button>
     </ButtonGroup>
   }
 }
