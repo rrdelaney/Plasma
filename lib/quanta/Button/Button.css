@@ -7,7 +7,7 @@
   color: white;
   cursor: pointer;
   display: inline-block;
-  font-family: 'Raleway';
+  font-family: var(--font);
   padding: .5rem;
   user-select: none;
 }
