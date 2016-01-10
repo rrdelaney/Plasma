@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Button, ButtonGroup, TextField } from 'quanta'
+import { Button, ButtonGroup, TextField, Heading } from 'quanta'
 
 class Page extends Component {
   onClick () {
@@ -9,9 +9,7 @@ class Page extends Component {
 
   render () {
     return <div>
-      <TextField placeholder="First Name" validate={x => x === 'Ryan'}/>
-      <TextField placeholder="Last Name" validate={x => x === 'Delaney'}/>
-      <TextField placeholder="Phone Number" validate="phone" />
+      <Heading>Hey!</Heading>
     </div>
   }
 }
