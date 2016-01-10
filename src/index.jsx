@@ -8,7 +8,11 @@ class Page extends Component {
   }
 
   render () {
-    return <TextField />
+    return <div>
+      <TextField placeholder="First Name" validate={x => x === 'Ryan'}/>
+      <TextField placeholder="Last Name" validate={x => x === 'Delaney'}/>
+      <TextField placeholder="Phone Number" validate="phone" />
+    </div>
   }
 }
 

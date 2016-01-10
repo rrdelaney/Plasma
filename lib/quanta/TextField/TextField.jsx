@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { textField } from './TextField.css'
+import { textField, valid, invalid, waiting } from './TextField.css'
 
 export default class TextField extends Component {
   constructor(props) {
@@ -9,7 +9,8 @@ export default class TextField extends Component {
     this.onChange = this.onChange.bind(this)
     this.state = {
       valid: null,
-      value: ''
+      value: '',
+      waiting: false
     }
   }
 
@@ -25,10 +26,24 @@ export default class TextField extends Component {
   }
 
   validateInput (value) {
+    const validateNum = num => num.match(/^\d+$/g) !== null
+    const validatePhone = num => num.match(/^(\d{3}-\d{3}-\d{4})|(\d{10})$/) !== null
+
     if (this.props.validate) {
-      const isValid = this.props.validate(value)
+      const validate = this.props.validate === 'number'
+        ? validateNum
+        : this.props.validate === 'phone'
+        ? validatePhone
+        : this.props.validate
+
+      const isValid = validate(value)
 
       if (isValid.then) {
+        this.setState({
+          valid: null,
+          waiting: true
+        })
+
         isValid.then(valid => {
           this.setState({ valid })
         })
@@ -39,6 +54,22 @@ export default class TextField extends Component {
   }
 
   render () {
-    return <input className={textField} type="text" onChange={this.onChange} value={this.state.value} />
+    const isValid = this.state.valid === null || this.state.value === ''
+      ? ''
+      : this.state.valid === true
+      ? valid
+      : invalid
+
+    const isWaiting = this.state.waiting
+      ? waiting
+      : ''
+
+    return <div className={`${textField} ${isValid} ${isWaiting}`}>
+      <input
+        type="text"
+        placeholder={this.props.placeholder}
+        onChange={this.onChange}
+        value={this.state.value} />
+    </div>
   }
 }
