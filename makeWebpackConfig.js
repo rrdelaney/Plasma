@@ -12,6 +12,29 @@ const SRC_DIR = 'src'
 const ENTRY_FILE = 'index.jsx'
 const TARGET_DIR = 'target'
 const TARGET_FILE = 'app.js'
+const TARGET_CSS = 'app.css'
+
+function displayProgress () {
+  var progressBar
+
+  return (percent, message) => {
+    if (percent === 0) {
+      if (progressBar) progressBar.update(1, { message: 'done!' })
+      progressBar = new ProgressBar(`  building [:bar] ${chalk.green(':percent')} :message`, {
+        complete: '=',
+        incomplete: ' ',
+        width: 20,
+        total: 100,
+        renderThrottle: 2,
+        message: message
+      })
+    } else {
+      progressBar.update(percent, {
+        message: percent === 1 ? 'done!' : message
+      })
+    }
+  }
+}
 
 let baseConfig = {
   entry: [
@@ -30,8 +53,12 @@ let baseConfig = {
         exclude: /node_modules/
       }, {
         test: /.css$/,
-        loader: 'style!css?modules!postcss',
+        loader: ExtractTextPlugin.extract('style', 'css?modules!postcss'),
         exclude: 'node_modules'
+      }, {
+        test: /.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css'),
+        exclude: /(lib|src)/
       }, {
         test: /.json$/,
         loader: 'json-loader'
@@ -51,8 +78,6 @@ let baseConfig = {
 }
 
 function makeDevelopment (config) {
-  var progressBar
-
   return extend(config, {
     entry: [
       ...config.entry,
@@ -65,28 +90,12 @@ function makeDevelopment (config) {
         NODE_ENV: 'development',
         DEBUG: true
       }),
-      new webpack.ProgressPlugin((percent, message) => {
-        if (percent === 0) {
-          if (progressBar) progressBar.update(1, { message: 'done!' })
-          progressBar = new ProgressBar(`  building [:bar] ${chalk.green(':percent')} :message`, {
-            complete: '=',
-            incomplete: ' ',
-            width: 20,
-            total: 100,
-            renderThrottle: 2,
-            message: message
-          })
-        } else {
-          progressBar.update(percent, {
-            message: percent === 1 ? 'done!' : message
-          })
-        }
-      }),
+      new webpack.ProgressPlugin(displayProgress()),
+      new ExtractTextPlugin(TARGET_CSS, { disable: true }),
       new HtmlWebpackPlugin({
         inject: true,
         title: 'Plasma'
-      }),
-      new webpack.NoErrorsPlugin()
+      })
     ],
     debug: true,
     devtool: 'eval-source-map'
@@ -101,6 +110,8 @@ function makeProduction (config) {
           warnings: false
         }
       }),
+      new webpack.ProgressPlugin(displayProgress()),
+      new ExtractTextPlugin(TARGET_CSS, { allChunks: true }),
       new HtmlWebpackPlugin({
         title: 'Plasma',
         minify: {
