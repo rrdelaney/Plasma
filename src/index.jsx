@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Button, ButtonGroup, TextField, Heading } from 'quanta'
+import { Button, ButtonGroup, TextField, Heading, Editor } from 'quanta'
 
-class Page extends Component {
-  onClick () {
-    alert('clicked!')
-  }
-
+class Example extends Component {
   render () {
-    return <div>
-      <Heading>Hey!</Heading>
-    </div>
+    // return <div>
+    //   <section>
+    //     <h1>Buttons</h1>
+    //     <Button>Add</Button>
+    //     <Button success>Go</Button>
+    //     <Button fail>Stop</Button>
+    //     <Button warn>Continue</Button>
+    //   </section>
+    //   <section>
+    //     <h1>Button Groups</h1>
+    //     <ButtonGroup>
+    //       <Button>Add</Button>
+    //       <Button success>Go</Button>
+    //       <Button fail>Stop</Button>
+    //       <Button warn>Continue</Button>
+    //     </ButtonGroup>
+    //   </section>
+    // </div>
+    return <Editor placeholder="hey"/>
   }
 }
 
@@ -21,4 +33,4 @@ document.body.appendChild((() => {
   return reactRoot
 })())
 
-ReactDOM.render(<Page />, document.getElementById('root'))
+ReactDOM.render(<Example />, document.getElementById('root'))

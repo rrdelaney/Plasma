@@ -1,19 +1,16 @@
 import React from 'react'
-import { button, success, fail, warn } from './Button.css'
+import style, { button } from './Button.css'
 
-export default function Button ({type, children, onClick}) {
-  let buttonType = type === 'success'
-    ? success
-    : type === 'fail'
-    ? fail
-    : type === 'warn'
-    ? warn
-    : ''
+export default function Button (props) {
+  const styles = Object.keys(props).filter(key =>
+    !!style[key]
+  ).map(key =>
+    style[key]
+  )
 
-  return <div
-    className={`${button} ${buttonType}`}
-    onClick={onClick}>
-    {children}
+  return <div className={`${button} ${styles.join(' ')}`}
+    onClick={props.onClick}>
+    {props.children}
   </div>
 }
 

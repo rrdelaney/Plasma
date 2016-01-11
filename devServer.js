@@ -5,6 +5,8 @@ let webpack = require('webpack')
 let gutil = require('gulp-util')
 let express = require('express')
 
+const APP_PORT = 3000
+
 module.exports = (config, cb) => {
   let app = express()
 
@@ -12,8 +14,6 @@ module.exports = (config, cb) => {
     if (err) {
       throw new gutil.PluginError('webpack', err)
     }
-
-    gutil.log(`[${gutil.colors.grey('ui')}]`, 'Listening at', gutil.colors.cyan('http://localhost:3000'))
   })
 
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -28,9 +28,11 @@ module.exports = (config, cb) => {
 
   app.use(express.static('resources'))
 
-  app.listen(3000, 'localhost', err => {
+  app.listen(APP_PORT, 'localhost', err => {
+    gutil.log(`[${gutil.colors.grey('dev')}]`, 'Listening at', gutil.colors.cyan(`http://localhost:${APP_PORT}`))
+
     if (err) {
-      gutil.log(`[${gutil.colors.grey('ui')}]`, err)
+      gutil.log(`[${gutil.colors.grey('dev')}]`, err)
     }
   })
 }

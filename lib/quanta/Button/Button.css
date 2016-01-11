@@ -1,65 +1,49 @@
 @import "../vars.css";
 
 .button {
-  background-color: var(--primary);
-  border-radius: .5rem .5rem .4rem .4rem;
-  border-bottom: solid var(--button-depth) color(var(--primary) blackness(50%));
-  color: white;
+  background-color: white;
+  border-radius: .5rem;
+  border: solid .1rem var(--primary);
+  color: var(--primary);
   cursor: pointer;
-  display: inline-block;
+  display: inline;
   font-family: var(--font);
+  margin: .5rem;
   padding: .5rem;
   user-select: none;
 }
 
-.button:hover {
-  margin-top: var(--button-depth);
-  border-bottom-width: 0;
-}
-
-.button:hover:not(:active) {
-  border-bottom-color: var(--primary);
-}
-
 .button:active {
-  background-color: color(var(--primary) blackness(50%));
+  border-color: color(var(--primary) blackness(50%));
+  color: color(var(--primary) blackness(50%));
 }
 
 .success {
-  background-color: var(--success);
-  border-bottom-color: color(var(--success) blackness(50%));
-}
-
-.success:hover:not(:active) {
-  border-bottom-color: var(--success);
+  border-color: var(--success);
+  color: var(--success);
 }
 
 .success:active {
-  background-color: color(var(--success) blackness(50%));
+  border-color: color(var(--success) blackness(50%));
+  color: color(var(--success) blackness(50%));
 }
 
 .fail {
-  background-color: var(--fail);
-  border-bottom-color: color(var(--fail) blackness(50%));
-}
-
-.fail:hover:not(:active) {
-  border-bottom-color: var(--fail);
+  border-color: var(--fail);
+  color: var(--fail);
 }
 
 .fail:active {
-  background-color: color(var(--fail) blackness(50%));
+  border-color: color(var(--fail) blackness(50%));
+  color: color(var(--fail) blackness(50%));
 }
 
 .warn {
-  background-color: var(--warn);
-  border-bottom-color: color(var(--warn) blackness(50%));
-}
-
-.warn:hover:not(:active) {
-  border-bottom-color: var(--warn);
+  border-color: var(--warn);
+  color: var(--warn);
 }
 
 .warn:active {
-  background-color: color(var(--warn) blackness(50%));
+  border-color: color(var(--warn) blackness(50%));
+  color: color(var(--warn) blackness(50%));
 }

@@ -12,7 +12,10 @@ const TARGET_DIR = 'target'
 const TARGET_FILE = 'app.js'
 
 let baseConfig = {
-  entry: path.join(__dirname, SRC_DIR, ENTRY_FILE),
+  entry: [
+    'babel-polyfill',
+    path.join(__dirname, SRC_DIR, ENTRY_FILE)
+  ],
   output: {
     path: path.join(__dirname, TARGET_DIR),
     filename: TARGET_FILE
@@ -48,7 +51,7 @@ let baseConfig = {
 function makeDevelopment (config) {
   return extend(config, {
     entry: [
-      config.entry,
+      ...config.entry,
       'webpack-hot-middleware/client?http://localhost:3000',
       'webpack/hot/only-dev-server'
     ],
@@ -58,7 +61,10 @@ function makeDevelopment (config) {
         NODE_ENV: 'development',
         DEBUG: true
       }),
-      new HtmlWebpackPlugin()
+      new HtmlWebpackPlugin({
+        inject: true,
+        title: 'Plasma'
+      })
     ],
     debug: true,
     devtool: 'eval-source-map'
@@ -75,6 +81,8 @@ function makeProduction (config) {
       }),
       new HtmlWebpackPlugin({
         minify: {
+          title: 'Plasma',
+          inject: true,
           removeComments: true,
           collapseWhitespace: true,
           removeRedundantAttributes: true,
@@ -82,8 +90,8 @@ function makeProduction (config) {
           removeEmptyAttributes: true,
           removeStyleLinkTypeAttributes: true,
           keepClosingSlash: true,
-          minifyJS: true,
-          minifyCSS: true,
+          minifyJS: false,
+          minifyCSS: false,
           minifyURLs: true
         },
         inject: true

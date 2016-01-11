@@ -2,19 +2,33 @@
 
 Plasma is the working name for a book-authoring IDE :whale:
 
-## Quanta
+# Technologies
 
-Quanta is the set of React components backing Plasma. Import like so: 
+- React
+- Babel
+- Webpack
+- Gulp
 
-```js
-import Button from 'quanta/Button'
+# Development
 
-// or
-
-import { Button } from 'quanta'
+To start a development server run
 
 ```
+gulp debug
+```
 
-Current components:
+# Building
 
-- Button
+For a full production build run
+
+
+```
+gulp build
+```
+
+# Bundled Libraries
+
+There are several bundled libraries:
+- Quanta: React Toolkit
+- Nucleic: Data Structures and Functions
+- React Update: Helper library for React
