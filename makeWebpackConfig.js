@@ -5,6 +5,8 @@ let extend = require('util')._extend
 let webpack = require('webpack')
 let HtmlWebpackPlugin = require('html-webpack-plugin')
 let ExtractTextPlugin = require('extract-text-webpack-plugin')
+let ProgressBar = require('progress')
+let chalk = require('chalk')
 
 const SRC_DIR = 'src'
 const ENTRY_FILE = 'index.jsx'
@@ -49,6 +51,8 @@ let baseConfig = {
 }
 
 function makeDevelopment (config) {
+  var progressBar
+
   return extend(config, {
     entry: [
       ...config.entry,
@@ -61,10 +65,28 @@ function makeDevelopment (config) {
         NODE_ENV: 'development',
         DEBUG: true
       }),
+      new webpack.ProgressPlugin((percent, message) => {
+        if (percent === 0) {
+          if (progressBar) progressBar.update(1, { message: 'done!' })
+          progressBar = new ProgressBar(`  building [:bar] ${chalk.green(':percent')} :message`, {
+            complete: '=',
+            incomplete: ' ',
+            width: 20,
+            total: 100,
+            renderThrottle: 2,
+            message: message
+          })
+        } else {
+          progressBar.update(percent, {
+            message: percent === 1 ? 'done!' : message
+          })
+        }
+      }),
       new HtmlWebpackPlugin({
         inject: true,
         title: 'Plasma'
-      })
+      }),
+      new webpack.NoErrorsPlugin()
     ],
     debug: true,
     devtool: 'eval-source-map'
@@ -80,8 +102,8 @@ function makeProduction (config) {
         }
       }),
       new HtmlWebpackPlugin({
+        title: 'Plasma',
         minify: {
-          title: 'Plasma',
           inject: true,
           removeComments: true,
           collapseWhitespace: true,

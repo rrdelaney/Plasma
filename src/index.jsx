@@ -22,7 +22,7 @@ class Example extends Component {
     //     </ButtonGroup>
     //   </section>
     // </div>
-    return <Editor placeholder="hey"/>
+    return <Editor placeholder="heu"/>
   }
 }
 

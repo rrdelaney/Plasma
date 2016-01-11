@@ -19,12 +19,15 @@ module.exports = (config, cb) => {
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: config.output.publicPath,
     noInfo: true,
+    quiet: true,
     stats: {
       colors: true
     }
   }))
 
-  app.use(require('webpack-hot-middleware')(compiler))
+  app.use(require('webpack-hot-middleware')(compiler, {
+    reload: true
+  }))
 
   app.use(express.static('resources'))
 
