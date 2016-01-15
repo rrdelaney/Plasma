@@ -29,6 +29,7 @@ gulp build
 # Bundled Libraries
 
 There are several bundled libraries:
+- Cosmic: Plasma Toolkit
 - Quanta: React Toolkit
-- Nucleic: Data Structures and Functions
+- Nucleus: Data Structures and Functions
 - React Update: Helper library for React

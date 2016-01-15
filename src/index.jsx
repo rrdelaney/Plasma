@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Button, ButtonGroup, TextField, Heading, Editor } from 'quanta'
+import { Button, ButtonGroup, TextField, Heading } from 'quanta'
+import { Editor } from 'cosmic'
 
 class Example extends Component {
   render () {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Rope } from 'nucleic'
+import { Rope } from 'nucleus'
 import { editor } from './Editor.css'
 
 var keymap
