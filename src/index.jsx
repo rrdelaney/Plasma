@@ -1,35 +1,41 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Stylesheet } from 'stylesheet'
-import { Button, ButtonGroup, TextField, Heading } from 'quanta'
+import { Button, TextField, Heading } from 'quanta'
 import { Editor } from 'cosmic'
 
 class Example extends Component {
   render () {
     return <div>
       <section>
-        <h1>Buttons</h1>
+        <Heading>Buttons</Heading>
+        <hr />
         <Button>Add</Button>
-        <Button success>Go</Button>
-        <Button fail>Stop</Button>
-        <Button warn>Continue</Button>
+        <Button secondary>Go</Button>
+        <Button negative>Stop</Button>
       </section>
-     </div>
-    //   <section>
-    //     <h1>Button Groups</h1>
-    //     <ButtonGroup>
-    //       <Button>Add</Button>
-    //       <Button success>Go</Button>
-    //       <Button fail>Stop</Button>
-    //       <Button warn>Continue</Button>
-    //     </ButtonGroup>
-    //   </section>
-    // </div>
+      <section>
+        <Heading>Text Field</Heading>
+        <hr />
+        <TextField placeholder="Input" />
+        <TextField placeholder="Number" validate="number" />
+        <TextField placeholder="Phone Number" validate="phone" />
+      </section>
+      <section>
+        <Heading>Headings</Heading>
+        <hr />
+        <Heading>Normal</Heading>
+        <Heading small>Small</Heading>
+        <Heading large>Large</Heading>
+        <Heading bold>Bold</Heading>
+        <Heading italic>Italic</Heading>
+      </section>
+    </div>
     // return <Editor placeholder="heu"/>
   }
 }
 
-Stylesheet.render()
+Stylesheet.load()
 
 document.body.appendChild((() => {
   let reactRoot = document.createElement('div')

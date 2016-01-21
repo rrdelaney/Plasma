@@ -1,5 +1,48 @@
 import React, { Component } from 'react'
-import { textField, valid, invalid, waiting } from './TextField.css'
+import { Stylesheet } from 'stylesheet'
+import { font, positive, negative } from './vars'
+
+const { textField, valid, invalid } = Stylesheet.create({
+  textField: {
+    border: 'solid 1px rgb(177, 177, 177)',
+    display: 'block',
+    padding: '.3rem .3rem .1rem .3rem',
+    margin: '1rem 0',
+    width: '20rem',
+    '::before': {
+      position: 'fixed'
+    }
+  },
+  waiting: {
+    '::before': {
+      content: '"➜"'
+    }
+  },
+  valid: {
+    borderColor: positive,
+    '::before': {
+      content: '"✔"',
+      color: positive
+    }
+  },
+  invalid: {
+    borderBottomColor: negative,
+    '::before': {
+      content: '"✖"',
+      color: negative
+    }
+  },
+  '%input': {
+    border: 'none',
+    fontFamily: font,
+    fontSize: '16px',
+    marginLeft: '1.3rem',
+    width: '18rem',
+    ':focus': {
+      outline: 'none'
+    }
+  }
+})
 
 export default class TextField extends Component {
   constructor(props) {

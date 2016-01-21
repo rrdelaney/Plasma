@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
 import { Rope } from 'nucleus'
-import { editor } from './Editor.css'
+import { Stylesheet } from 'stylesheet'
 
 var keymap
+
+const { editor } = Stylesheet.create({
+  editor: {
+    color: 'white',
+    backgroundColor: 'black',
+    ':focus': {
+      border: '2px solid black'
+    }
+  }
+})
 
 export default class Editor extends Component {
   constructor (props) {
