@@ -1,8 +1,22 @@
 import React from 'react'
-import { Stylesheet } from 'stylesheet'
+import { useStyle } from 'stylesheet'
 import { font, primary, primaryDark, negative, negativeDark } from './vars'
 
-const style = Stylesheet.create({
+export default function Button (props) {
+  const styles = Object.keys(props).filter(key =>
+    !!this.styles[key]
+  ).map(key =>
+    this.styles[key]
+  )
+
+  return <div
+    className={`${this.styles.button} ${styles.join(' ')}`}
+    onClick={props.onClick}>
+    {props.children}
+  </div>
+}
+
+useStyle({
   button: {
     backgroundColor: primary,
     borderRadius: '.2rem',
@@ -40,23 +54,4 @@ const style = Stylesheet.create({
       borderColor: 'white'
     }
   }
-})
-
-export default function Button (props) {
-  const styles = Object.keys(props).filter(key =>
-    !!style[key]
-  ).map(key =>
-    style[key]
-  )
-
-  return <div
-    className={`${style.button} ${styles.join(' ')}`}
-    onClick={props.onClick}>
-    {props.children}
-  </div>
-}
-
-Button.propTypes = {
-  type: React.PropTypes.string,
-  onClick: React.PropTypes.func
-}
+})(Button)

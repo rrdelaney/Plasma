@@ -1,8 +1,20 @@
 import React from 'react'
-import { Stylesheet } from 'stylesheet'
+import { useStyle } from 'stylesheet'
 import { font } from './vars'
 
-const style = Stylesheet.create({
+export default function Heading (props) {
+  const styles = Object.keys(props).filter(key =>
+    !!this.styles[key]
+  ).map(key =>
+    this.styles[key]
+  )
+
+  return <div className={`${this.styles.heading} ${styles.join(' ')}`}>
+    {props.children}
+  </div>
+}
+
+useStyle({
   heading: {
     fontFamily: font,
     fontSize: '32px',
@@ -20,16 +32,4 @@ const style = Stylesheet.create({
   italic: {
     fontStyle: 'italic'
   }
-})
-
-export default function Heading (props) {
-  const styles = Object.keys(props).filter(key =>
-    !!style[key]
-  ).map(key =>
-    style[key]
-  )
-
-  return <div className={`${style.heading} ${styles.join(' ')}`}>
-    {props.children}
-  </div>
-}
+})(Heading)
