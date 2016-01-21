@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { Stylesheet } from 'stylesheet'
 import { Button, ButtonGroup, TextField, Heading } from 'quanta'
 import { Editor } from 'cosmic'
 
 class Example extends Component {
   render () {
-    // return <div>
-    //   <section>
-    //     <h1>Buttons</h1>
-    //     <Button>Add</Button>
-    //     <Button success>Go</Button>
-    //     <Button fail>Stop</Button>
-    //     <Button warn>Continue</Button>
-    //   </section>
+    return <div>
+      <section>
+        <h1>Buttons</h1>
+        <Button>Add</Button>
+        <Button success>Go</Button>
+        <Button fail>Stop</Button>
+        <Button warn>Continue</Button>
+      </section>
+     </div>
     //   <section>
     //     <h1>Button Groups</h1>
     //     <ButtonGroup>
@@ -23,9 +25,11 @@ class Example extends Component {
     //     </ButtonGroup>
     //   </section>
     // </div>
-    return <Editor placeholder="heu"/>
+    // return <Editor placeholder="heu"/>
   }
 }
+
+Stylesheet.render()
 
 document.body.appendChild((() => {
   let reactRoot = document.createElement('div')

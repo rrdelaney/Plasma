@@ -98,7 +98,7 @@ function makeDevelopment (config) {
       })
     ],
     debug: true,
-    devtool: 'eval-source-map'
+    devtool: 'source-map'
   })
 }
 
