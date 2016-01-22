@@ -1,5 +1,10 @@
 "use strict"
 
+process.env.NODE_PATH = __dirname + '/lib';
+require('module').Module._initPaths()
+require('babel-polyfill')
+require('babel-register')
+
 let gulp = require('gulp')
 let env = require('gulp-env')
 let webpack = require('webpack')
@@ -12,10 +17,6 @@ gulp.task('debug', function (cb) {
 })
 
 gulp.task('build', function(cb) {
-  env.set({
-    NODE_ENV: 'production'
-  })
-
   webpack(config('production'), function (err, stats) {
     if (err) {
       throw new gutil.PluginError('webpack', err)

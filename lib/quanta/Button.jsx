@@ -2,20 +2,6 @@ import React from 'react'
 import { useStyle } from 'stylesheet'
 import { font, primary, primaryDark, negative, negativeDark } from './vars'
 
-export default function Button (props) {
-  const styles = Object.keys(props).filter(key =>
-    !!this.styles[key]
-  ).map(key =>
-    this.styles[key]
-  )
-
-  return <div
-    className={`${this.styles.button} ${styles.join(' ')}`}
-    onClick={props.onClick}>
-    {props.children}
-  </div>
-}
-
 useStyle({
   button: {
     backgroundColor: primary,
@@ -55,3 +41,17 @@ useStyle({
     }
   }
 })(Button)
+
+export default function Button (props) {
+  const styles = Object.keys(props).filter(key =>
+    !!Button.styles[key]
+  ).map(key =>
+    Button.styles[key]
+  )
+
+  return <div
+    className={`${Button.styles.button} ${styles.join(' ')}`}
+    onClick={props.onClick}>
+    {props.children}
+  </div>
+}

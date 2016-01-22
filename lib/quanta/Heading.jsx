@@ -2,22 +2,10 @@ import React from 'react'
 import { useStyle } from 'stylesheet'
 import { font } from './vars'
 
-export default function Heading (props) {
-  const styles = Object.keys(props).filter(key =>
-    !!this.styles[key]
-  ).map(key =>
-    this.styles[key]
-  )
-
-  return <div className={`${this.styles.heading} ${styles.join(' ')}`}>
-    {props.children}
-  </div>
-}
-
 useStyle({
   heading: {
     fontFamily: font,
-    fontSize: '32px',
+    fontSize: '30px',
     fontWeight: 'bold'
   },
   small: {
@@ -33,3 +21,15 @@ useStyle({
     fontStyle: 'italic'
   }
 })(Heading)
+
+export default function Heading (props) {
+  const styles = Object.keys(props).filter(key =>
+    !!Heading.styles[key]
+  ).map(key =>
+    Heading.styles[key]
+  )
+
+  return <div className={`${Heading.styles.heading} ${styles.join(' ')}`}>
+    {props.children}
+  </div>
+}
