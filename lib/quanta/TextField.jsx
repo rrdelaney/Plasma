@@ -75,7 +75,7 @@ export default class TextField extends Component {
   }
 }
 
-useStyle({
+useStyle('textfield', {
   textField: {
     border: 'solid 1px rgb(177, 177, 177)',
     display: 'block',

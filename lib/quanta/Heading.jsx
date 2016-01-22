@@ -2,7 +2,7 @@ import React from 'react'
 import { useStyle } from 'stylesheet'
 import { font } from './vars'
 
-useStyle({
+useStyle('heading', {
   heading: {
     fontFamily: font,
     fontSize: '30px',

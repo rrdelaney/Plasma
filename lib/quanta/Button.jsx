@@ -2,7 +2,7 @@ import React from 'react'
 import { useStyle } from 'stylesheet'
 import { font, primary, primaryDark, negative, negativeDark } from './vars'
 
-useStyle({
+useStyle('button', {
   button: {
     backgroundColor: primary,
     borderRadius: '.2rem',

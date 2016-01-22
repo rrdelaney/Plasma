@@ -4,9 +4,7 @@ let path = require('path')
 let webpack = require('webpack')
 let gutil = require('gulp-util')
 let express = require('express')
-// let React = require('react')
-// let ReactDOMServer = require('react-dom/server')
-// let Stylesheet = require('stylesheet').Stylesheet
+let proxy = require('proxy-middleware')
 
 const APP_PORT = 3000
 
@@ -33,6 +31,8 @@ module.exports = (config, cb) => {
   }))
 
   app.use(express.static('resources'))
+  
+  app.use('/', proxy('http://localhost:3001'))
 
   app.listen(APP_PORT, 'localhost', err => {
     gutil.log(`[${gutil.colors.grey('dev')}]`, 'Listening at', gutil.colors.cyan(`http://localhost:${APP_PORT}`))

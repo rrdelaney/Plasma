@@ -8,9 +8,9 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let ProgressBar = require('progress')
 let chalk = require('chalk')
 
-const SRC_DIR = 'src'
+const SRC_DIR = 'client'
 const ENTRY_FILE = 'index.jsx'
-const TARGET_DIR = 'target'
+const TARGET_DIR = '_client'
 const TARGET_FILE = 'app.js'
 const TARGET_CSS = 'app.css'
 
@@ -20,7 +20,7 @@ function displayProgress () {
   return (percent, message) => {
     if (percent === 0) {
       if (progressBar) progressBar.update(1, { message: 'done!' })
-      progressBar = new ProgressBar(`  building [:bar] ${chalk.green(':percent')} :message`, {
+      progressBar = new ProgressBar(`[dev] [:bar] ${chalk.green(':percent')} :message`, {
         complete: '=',
         incomplete: ' ',
         width: 20,
@@ -50,7 +50,11 @@ let baseConfig = {
       {
         test: /\.(jsx|js)$/,
         loader: 'babel',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        query: {
+          'plugins': ['transform-regenerator'],
+          'presets': ['react-hmre']
+        }
       }, {
         test: /.css$/,
         loader: ExtractTextPlugin.extract('style', 'css?modules!postcss'),
