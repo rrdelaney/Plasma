@@ -95,11 +95,7 @@ function makeDevelopment (config) {
         DEBUG: true
       }),
       new webpack.ProgressPlugin(displayProgress()),
-      new ExtractTextPlugin(TARGET_CSS, { disable: true }),
-      new HtmlWebpackPlugin({
-        inject: true,
-        title: 'Plasma'
-      })
+      new ExtractTextPlugin(TARGET_CSS, { disable: true })
     ],
     debug: true,
     devtool: 'source-map'
@@ -116,23 +112,6 @@ function makeProduction (config) {
       }),
       new webpack.ProgressPlugin(displayProgress()),
       new ExtractTextPlugin(TARGET_CSS, { allChunks: true }),
-      new HtmlWebpackPlugin({
-        title: 'Plasma',
-        minify: {
-          inject: true,
-          removeComments: true,
-          collapseWhitespace: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          keepClosingSlash: true,
-          minifyJS: false,
-          minifyCSS: false,
-          minifyURLs: true
-        },
-        inject: true
-      }),
       new webpack.DefinePlugin({
         NODE_ENV: 'production',
         DEBUG: false
