@@ -1,6 +1,7 @@
 'use strict'
 
 let path = require('path')
+let del = require('del')
 let nodemon = require('nodemon')
 let gulp = require('gulp')
 let gutil = require('gulp-util')
@@ -59,9 +60,9 @@ gulp.task('debug', ['watch'], function () {
 
 gulp.task('compile', ['clean'], function () {
   let status = `[${gutil.colors.grey('server')}]`
-  gutil.log(status, 'Compiling lib...')
+  gutil.log(status, 'Compiling src...')
 
-  return gulp.src('lib/**/*.{js,jsx}')
+  return gulp.src('src/**/*.{js,jsx}')
     .pipe(plumber())
     .pipe(babel())
     .on('error', e => { gutil.log(status, e.message); console.log(e.codeFrame) })
