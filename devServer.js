@@ -20,7 +20,6 @@ module.exports = (config, cb) => {
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: config.output.publicPath,
     noInfo: true,
-    quiet: true,
     stats: {
       colors: true
     }
@@ -31,7 +30,7 @@ module.exports = (config, cb) => {
   }))
 
   app.use(express.static('resources'))
-  
+
   app.use('/', proxy('http://localhost:3001'))
 
   app.listen(APP_PORT, 'localhost', err => {

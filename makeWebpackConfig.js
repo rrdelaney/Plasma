@@ -8,8 +8,8 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let ProgressBar = require('progress')
 let chalk = require('chalk')
 
-const SRC_DIR = 'client'
-const ENTRY_FILE = 'index.jsx'
+const SRC_DIR = 'src'
+const ENTRY_FILE = 'client.jsx'
 const TARGET_DIR = '_client'
 const TARGET_FILE = 'app.js'
 const TARGET_CSS = 'app.css'
@@ -50,7 +50,7 @@ let baseConfig = {
       {
         test: /\.(jsx|js)$/,
         loader: 'babel',
-        exclude: /node_modules/,
+        exclude: /(node_modules|server.(js|jsx))/,
         query: {
           'plugins': ['transform-regenerator'],
           'presets': ['react-hmre']
@@ -71,7 +71,7 @@ let baseConfig = {
   },
   resolve: {
     extensions: ['', '.jsx', '.js', '.json'],
-    modulesDirectories: ['node_modules', 'lib']
+    modulesDirectories: ['lib', 'node_modules']
   },
   postcss: () => [
     require('autoprefixer')(),
@@ -91,7 +91,9 @@ function makeDevelopment (config) {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
-        NODE_ENV: 'development',
+        'process.env': {
+          NODE_ENV: JSON.stringify('development')
+        },
         DEBUG: true
       }),
       new webpack.ProgressPlugin(displayProgress()),
@@ -104,6 +106,10 @@ function makeDevelopment (config) {
 
 function makeProduction (config) {
   return extend(config, {
+    output: {
+      path: path.join(__dirname, 'target', 'static'),
+      filename: TARGET_FILE
+    },
     plugins: [
       new webpack.optimize.UglifyJsPlugin({
         compress: {
@@ -113,7 +119,9 @@ function makeProduction (config) {
       new webpack.ProgressPlugin(displayProgress()),
       new ExtractTextPlugin(TARGET_CSS, { allChunks: true }),
       new webpack.DefinePlugin({
-        NODE_ENV: 'production',
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        },
         DEBUG: false
       })
     ]
