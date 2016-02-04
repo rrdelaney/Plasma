@@ -1,8 +1,22 @@
 import React from 'react'
-import { useStyle } from 'stylesheet'
+import { applyStyles } from 'reyle/react'
 import { font, primary, primaryDark, negative, negativeDark } from './vars'
 
-useStyle('button', {
+export default function Button (props) {
+  const styles = Object.keys(props).filter(key =>
+    !!Button.styles[key]
+  ).map(key =>
+    Button.styles[key]
+  )
+
+  return <div
+    className={`${Button.styles.button} ${styles.join(' ')}`}
+    onClick={props.onClick}>
+    {props.children}
+  </div>
+}
+
+applyStyles({
   button: {
     backgroundColor: primary,
     borderRadius: '.2rem',
@@ -41,17 +55,3 @@ useStyle('button', {
     }
   }
 })(Button)
-
-export default function Button (props) {
-  const styles = Object.keys(props).filter(key =>
-    !!Button.styles[key]
-  ).map(key =>
-    Button.styles[key]
-  )
-
-  return <div
-    className={`${Button.styles.button} ${styles.join(' ')}`}
-    onClick={props.onClick}>
-    {props.children}
-  </div>
-}

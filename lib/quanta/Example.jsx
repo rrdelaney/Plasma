@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stylesheet } from 'stylesheet'
+import { StyleSheet } from 'reyle'
 import { Button, TextField, Heading } from 'quanta'
 import { Editor } from 'cosmic'
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useStyle } from 'stylesheet'
+import { applyStyles } from 'reyle/react'
 import { font, positive, negative } from './vars'
 
 export default class TextField extends Component {
@@ -75,7 +75,7 @@ export default class TextField extends Component {
   }
 }
 
-useStyle('textfield', {
+applyStyles({
   textField: {
     border: 'solid 1px rgb(177, 177, 177)',
     display: 'block',

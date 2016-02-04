@@ -15,18 +15,41 @@ let plumber = require('gulp-plumber')
 let devServer = require('./devServer')
 let config = require('./makeWebpackConfig')
 
+// Cleans up any previous debug or production builds
 gulp.task('clean', function (cb) {
-  return del(['_lib/**', '_server/**', '_client/**', '_target/**'])
+  return del(['_lib/**', '_server/**', '_client/**', 'target/**'])
 })
 
+// Copies static files for a production build
+gulp.task('copy:build', ['clean'], function () {
+  return gulp.src('static/**')
+    .pipe(gulp.dest('target/static'))
+})
+
+// Copies static files for a debug build
+gulp.task('copy:debug', ['clean'], function () {
+  return gulp.src('static/**')
+    .pipe(gulp.dest('_server/static'))
+})
+
+// Starts the ui AND server for debug
 gulp.task('ui:debug', ['server:debug'], function (cb) {
   devServer(config('debug'))
   cb()
 })
 
+// Starts only the ui for debug
+gulp.task('ui:debug:only', ['clean'], function (cb) {
+  devServer(config('debug'))
+  cb()
+})
+
+// builds the ui for production
 gulp.task('ui:build', ['clean'], function (cb) {
-  env.set({
-    NODE_ENV: 'production'
+  env({
+    vars: {
+      NODE_ENV: 'production'
+    }
   })
 
   webpack(config('production'), function (err, stats) {
@@ -42,6 +65,7 @@ gulp.task('ui:build', ['clean'], function (cb) {
   })
 })
 
+// builds the server for production
 gulp.task('server:build', ['server:build:src', 'server:build:lib'], function () {
   return gulp.src('package.json')
     .pipe(gulp.dest('target'))
@@ -104,21 +128,19 @@ gulp.task('server:watch:src', ['clean'], function (cb) {
   const SOURCES = ['src/**/*.{js,jsx}', '!src/**/client.{js,jsx}']
   const DEST = '_server'
   let status = `[${gutil.colors.grey('server')}]`
-  let envs = env.set({ NODE_ENV: 'server' })
   let fileChanged = fname => {
     gutil.log(status, `${path.relative(__dirname, fname)} changed!`)
     nodemon.restart()
   }
 
   let watchSources = () => {
+    gutil.log(status, 'Watching src...')
     gulp.src(SOURCES)
       .pipe(watch('lib/**/*.{js,jsx}'))
       .on('change', fileChanged)
       .pipe(plumber())
-      .pipe(envs)
       .pipe(babel())
       .on('error', e => { gutil.log(status, e.message); console.log(e.codeFrame) })
-      .pipe(envs.reset)
       .pipe(gulp.dest(DEST))
   }
 
@@ -126,10 +148,8 @@ gulp.task('server:watch:src', ['clean'], function (cb) {
 
   return gulp.src(SOURCES)
     .pipe(plumber())
-    .pipe(envs)
     .pipe(babel())
     .on('error', e => { gutil.log(status, e.message); console.log(e.codeFrame) })
-    .pipe(envs.reset)
     .pipe(gulp.dest(DEST))
     .on('end', watchSources)
 })
@@ -138,21 +158,19 @@ gulp.task('server:watch:lib', ['clean'], function (cb) {
   const SOURCES = 'lib/**/*.{js,jsx}'
   const DEST = '_lib'
   let status = `[${gutil.colors.grey('server')}]`
-  let envs = env.set({ NODE_ENV: 'server' })
   let fileChanged = fname => {
     gutil.log(status, `${path.relative(__dirname, fname)} changed!`)
     nodemon.restart()
   }
 
   let watchSources = () => {
+    gutil.log(status, 'Watching lib...')
     gulp.src(SOURCES)
       .pipe(watch('lib/**/*.{js,jsx}'))
       .on('change', fileChanged)
       .pipe(plumber())
-      .pipe(envs)
       .pipe(babel())
       .on('error', e => { gutil.log(status, e.message); console.log(e.codeFrame) })
-      .pipe(envs.reset)
       .pipe(gulp.dest(DEST))
   }
 
@@ -160,13 +178,11 @@ gulp.task('server:watch:lib', ['clean'], function (cb) {
 
   return gulp.src(SOURCES)
     .pipe(plumber())
-    .pipe(envs)
     .pipe(babel())
     .on('error', e => { gutil.log(status, e.message); console.log(e.codeFrame) })
-    .pipe(envs.reset)
     .pipe(gulp.dest(DEST))
     .on('end', watchSources)
 })
 
 gulp.task('debug', ['ui:debug'])
-gulp.task('build', ['ui:build', 'server:build'])
+gulp.task('build', ['copy:build', 'ui:build', 'server:build'])

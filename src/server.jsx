@@ -3,17 +3,20 @@ import express from 'express'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { createStore } from 'redux'
-import { DevTools } from 'devtools'
-import { Stylesheet } from 'stylesheet'
+import { StyleSheet } from 'reyle'
 import Example from 'quanta/Example'
 import Container from 'plasma/Container'
 import configureStore from 'plasma/store'
 
-const APP_PORT = 3001
+const DEBUG = process.env.NODE_ENV !== 'production'
+const APP_HOST = DEBUG ? 'localhost' : '0.0.0.0'
+const APP_PORT = DEBUG ? 3001 : 80
 
 const app = express()
 
-app.use((req, res) => {
+app.use(express.static('static'))
+
+app.get('/', (req, res) => {
   const store = configureStore({
     test: false
   })
@@ -25,7 +28,7 @@ app.use((req, res) => {
     </Container>
   )
 
-  let { components, css } = Stylesheet.getCSS()
+  let { components, css } = StyleSheet.getCSS()
 
   res.send(`
     <!doctype html>
@@ -44,6 +47,6 @@ app.use((req, res) => {
   `)
 })
 
-app.listen(APP_PORT, 'localhost', err => {
+app.listen(APP_PORT, APP_HOST, err => {
   console.log('Listening at ' + APP_PORT)
 })

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Rope } from 'nucleus'
-import { Stylesheet } from 'stylesheet'
+import { StyleSheet } from 'reyle'
 
 var keymap
 
-const { editor } = Stylesheet.create({
+const { editor } = StyleSheet.create({
   editor: {
     color: 'white',
     backgroundColor: 'black',

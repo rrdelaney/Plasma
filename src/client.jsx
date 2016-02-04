@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Stylesheet } from 'stylesheet'
+import { StyleSheet } from 'reyle'
+import { loadIntoDOM } from 'reyle/dom'
 import Example from 'quanta/Example'
 import Container from 'plasma/Container'
 import configureStore from 'plasma/store'
 
-Stylesheet.loadIntoDOM()
+loadIntoDOM(StyleSheet)
 
 const store = configureStore(window.__REDUX_INIT)
 

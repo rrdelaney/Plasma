@@ -36,7 +36,7 @@ function displayProgress () {
   }
 }
 
-let baseConfig = {
+let baseConfig = debug => ({
   entry: [
     'babel-polyfill',
     path.join(__dirname, SRC_DIR, ENTRY_FILE)
@@ -53,7 +53,7 @@ let baseConfig = {
         exclude: /(node_modules|server.(js|jsx))/,
         query: {
           'plugins': ['transform-regenerator'],
-          'presets': ['react-hmre']
+          'presets': debug ? ['react-hmre'] : []
         }
       }, {
         test: /.css$/,
@@ -79,7 +79,7 @@ let baseConfig = {
     require('postcss-custom-properties')(),
     require('postcss-color-function')()
   ]
-}
+})
 
 function makeDevelopment (config) {
   return extend(config, {
@@ -93,8 +93,7 @@ function makeDevelopment (config) {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('development')
-        },
-        DEBUG: true
+        }
       }),
       new webpack.ProgressPlugin(displayProgress()),
       new ExtractTextPlugin(TARGET_CSS, { disable: true })
@@ -121,13 +120,12 @@ function makeProduction (config) {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production')
-        },
-        DEBUG: false
+        }
       })
     ]
   })
 }
 
 module.exports = env => env === 'production'
-  ? makeProduction(Object.create(baseConfig))
-  : makeDevelopment(Object.create(baseConfig))
+  ? makeProduction(Object.create(baseConfig(false)))
+  : makeDevelopment(Object.create(baseConfig(true)))

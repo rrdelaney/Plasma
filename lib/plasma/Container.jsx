@@ -6,7 +6,7 @@ import configureStore from './store'
 export default function Container ({ store, children }) {
   return <Provider store={store}>
     <div>
-      <DevTools />
+      {process.env.NODE_ENV !== 'production' ? <DevTools /> : null}
       <div>
         {children}
       </div>
