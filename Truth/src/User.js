@@ -6,7 +6,7 @@ export default class User extends Document {
   };
 
   constructor (username, password, permissions) {
-    super({ username, password, permissions })
+    super({ _id: username, password, permissions })
   }
 
   addPermission (name, value) {

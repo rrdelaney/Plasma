@@ -24,7 +24,7 @@ gulp.task('watch', ['clean'], function () {
 
   let watchSources = () => {
     gulp.src(SOURCES)
-      .pipe(watch('lib/**/*.{js,jsx}'))
+      .pipe(watch(SOURCES))
       .on('change', fileChanged)
       .pipe(plumber())
       .pipe(babel())
