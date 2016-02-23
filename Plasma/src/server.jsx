@@ -48,7 +48,9 @@ app.get('/', (req, res) => {
   `)
 })
 
-app.use('/', proxy('http://localhost:3000'))
+if (DEBUG) {
+  app.use('/', proxy('http://localhost:3000'))
+}
 
 app.listen(APP_PORT, APP_HOST, err => {
   console.log('Listening at ' + APP_PORT)

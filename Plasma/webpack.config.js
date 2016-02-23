@@ -3,13 +3,15 @@
 let webpack = require('webpack')
 let path = require('path')
 
+const DEBUG = process.env.NODE_ENV !== 'production'
+
 module.exports = {
   entry: [
     'babel-polyfill',
     path.join(__dirname, 'src', 'client.jsx')
   ],
   output: {
-    path: '_client',
+    path: DEBUG ? '_client' : 'target/static',
     filename: 'app.js'
   },
   devtool: 'source-map',
