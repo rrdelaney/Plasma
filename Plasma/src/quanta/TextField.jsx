@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { applyStyles } from 'reyle/react'
+import { applyStyles } from 'reyle'
 import { font, positive, negative } from './vars'
 
 export default class TextField extends Component {
@@ -18,11 +18,12 @@ export default class TextField extends Component {
   onChange(e) {
     const value = e.target.value
 
-    this.setState({ value })
     this.validateInput(value)
 
     if (this.props.onChange) {
       this.props.onChange(value)
+    } else {
+      this.setState({ value })
     }
   }
 
@@ -55,7 +56,7 @@ export default class TextField extends Component {
   }
 
   render () {
-    const isValid = this.state.valid === null || this.state.value === ''
+    const isValid = this.state.valid === null || (!this.state.value && !this.props.value)
       ? ''
       : this.state.valid === true
       ? this.styles.valid
@@ -70,7 +71,7 @@ export default class TextField extends Component {
         type="text"
         placeholder={this.props.placeholder}
         onChange={this.onChange}
-        value={this.state.value} />
+        value={this.props.value || this.state.value} />
     </div>
   }
 }

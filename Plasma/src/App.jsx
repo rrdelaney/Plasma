@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import re from './actions'
+import { TextField, Button } from './quanta'
 
-const selector = (state) => ({
-  ...state
-})
-
-@connect(selector, re.action)
+@connect(_ => _, re.action)
 export default class App extends Component {
   constructor (props, context) {
     super(props, context)
@@ -16,10 +13,8 @@ export default class App extends Component {
     }
   }
 
-  handleUpdate (event) {
-    this.setState({
-      text: event.target.value
-    })
+  handleUpdate (text) {
+    this.setState({ text })
   }
 
   addTodo () {
@@ -33,15 +28,13 @@ export default class App extends Component {
     const { actions, todo } = this.props
 
     return <div className='ui container'>
-      <button className='ui red button' onClick={actions.clearTodos}>Clear</button>
-      <button className='ui green button' onClick={::this.addTodo}>Add</button>
-      <div className='ui input'>
-        <input type='text' value={this.state.text} onChange={::this.handleUpdate} placeholder='TODO item'/>
-      </div>
+      <Button onClick={actions.clearTodos}>Clear</Button>
+      <Button onClick={::this.addTodo}>Add</Button>
+      <TextField validate="number" value={this.state.text} onChange={::this.handleUpdate} placeholder='TODO item'/>
 
-      <ul className='ui list'>
+      <ul>
         {todo.todos.map((t) =>
-          <li className='ui item' key={t}>{t}</li>)
+          <li key={t}>{t}</li>)
         }
       </ul>
     </div>

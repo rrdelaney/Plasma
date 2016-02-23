@@ -6,6 +6,8 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { createStore } from 'redux'
 
+import { StyleSheet } from 'reyle'
+
 import App from './App'
 import Container, { configureStore } from './Container'
 
@@ -19,7 +21,7 @@ app.use(express.static('static'))
 app.get('/', (req, res) => {
   const store = configureStore({
     todo: {
-      todos: []
+      todos: ['THING']
     }
   })
 
@@ -31,14 +33,16 @@ app.get('/', (req, res) => {
     </Container>
   )
 
+  let { components, css } = StyleSheet.getCSS()
+
   res.send(`
     <!doctype html>
     <html>
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
         <script>window.__REDUX_INIT = ${initialState}</script>
         <script src="app.js"></script>
-        <style data-components="components" data-stylesheet="static">
+        <style data-components="${components}" data-stylesheet="static">
+          ${css}
         </style>
       </head>
       <body>

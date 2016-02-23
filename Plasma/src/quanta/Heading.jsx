@@ -1,5 +1,5 @@
 import React from 'react'
-import { applyStyles } from 'reyle/react'
+import { applyStyles } from 'reyle'
 import { font } from './vars'
 
 export default function Heading (props) {
