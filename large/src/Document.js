@@ -13,7 +13,7 @@ class Document {
       this._schema.push(key)
     })
 
-    return this.initialized = this.connection()
+    this.initialized = this.connection()
       .then(db => db.collection(this.collectionName))
       .then(col => col.insertOne(doc))
       .then(res => { this._id = res.insertedId; return this })

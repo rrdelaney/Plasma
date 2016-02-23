@@ -16,14 +16,26 @@ app.use(route.post('/create', function *() {
   let { username, password, permissions } = this.request.body
   
   try {
-    yield new User(username, password, permissions)
+    yield new User(username, password, permissions).initialized
     this.body = JSON.stringify({ success: true })
   } catch (err) {
     if (err.code === 11000) {
       this.body = JSON.stringify({ success: false, message: 'That username already exists!' })
     } else {
-      this.body = JSON.stringify({ success: false, err }) 
+      this.body = JSON.stringify({ success: false, err: err.toString() }) 
     }
+  }
+}))
+
+app.use(route.post('/login', function *() {
+  let { username, password } = this.request.body
+  let [ user ] = yield User.find({ _id: username })
+  let success = yield user.login(password)
+  
+  if (success) {
+    this.body = JSON.stringify({ success: true, token: user.token })
+  } else {
+    this.body = JSON.stringify({ success: false })
   }
 }))
 

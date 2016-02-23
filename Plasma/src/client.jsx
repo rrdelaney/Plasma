@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { StyleSheet } from 'reyle'
-import { loadIntoDOM } from 'reyle/dom'
-import Example from 'quanta/Example'
-import Container from 'plasma/Container'
-import configureStore from 'plasma/store'
-
-loadIntoDOM(StyleSheet)
+import App from './App'
+import Container, { configureStore } from './Container'
 
 const store = configureStore(window.__REDUX_INIT)
 
@@ -19,7 +14,7 @@ window.onload = () => {
 
   ReactDOM.render(
     <Container store={store}>
-      <Example />
+      <App />
     </Container>,
     document.getElementById('root'))
 }
