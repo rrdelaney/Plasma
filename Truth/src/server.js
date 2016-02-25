@@ -1,20 +1,19 @@
 import koa from 'koa'
-import route from 'koa-route'
-import bodyParser from 'koa-bodyparser'
+import { route, bodyParser, cors } from 'libk'
 import User from './User'
 
 const PORT = 8000
 
 let app = koa()
-app.use(bodyParser())
+app.use(bodyParser)
 
-app.use(route.get('/ping', function *() {
-  this.body = 'pong'
+app.use(route.GET('/ping', async ctx => {
+  ctx.body = 'pong'
 }))
 
-app.use(route.post('/create', function *() {
+app.use(route.POST('/create', function *() {
   let { username, password, permissions } = this.request.body
-  
+
   try {
     yield new User(username, password, permissions).initialized
     this.body = JSON.stringify({ success: true })
@@ -22,16 +21,16 @@ app.use(route.post('/create', function *() {
     if (err.code === 11000) {
       this.body = JSON.stringify({ success: false, message: 'That username already exists!' })
     } else {
-      this.body = JSON.stringify({ success: false, err: err.toString() }) 
+      this.body = JSON.stringify({ success: false, err: err.toString() })
     }
   }
 }))
 
-app.use(route.post('/login', function *() {
+app.use(route.POST('/login', function *() {
   let { username, password } = this.request.body
   let [ user ] = yield User.find({ _id: username })
   let success = yield user.login(password)
-  
+
   if (success) {
     this.body = JSON.stringify({ success: true, token: user.token })
   } else {

@@ -2,30 +2,28 @@
   "name": "truth",
   "version": "0.0.0",
   "description": "Credential and Permission Microservice",
-  "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard | snazzy",
+    "predev": "babel src -d large",
+    "dev": "babel --watch src -d large & nodemon --watch large large/server.js",
+    "build": "babel src -d .",
+    "postbuild": "rimraf src"
   },
   "author": "Ryan Delaney <rrdelaney@outlook.com>",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^0.8.5",
-    "koa": "^1.1.2",
-    "koa-bodyparser": "^2.0.1",
-    "koa-route": "^2.4.2",
-    "large": "file:../large"
+    "koa": "^2.0.0-alpha.3",
+    "large": "file:../large",
+    "libk": "^1.0.1"
   },
   "devDependencies": {
     "babel": "^6.3.26",
+    "babel-plugin-transform-async-to-generator": "^6.5.0",
     "babel-preset-es2015-node5": "^1.1.2",
     "babel-preset-stage-0": "^6.3.13",
-    "del": "^2.2.0",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.1",
-    "gulp-plumber": "^1.0.1",
-    "gulp-util": "^3.0.7",
-    "gulp-watch": "^4.3.5",
     "nodemon": "^1.8.1",
+    "snazzy": "^3.0.0",
     "standard": "^5.4.1"
   }
 }
