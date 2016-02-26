@@ -1,6 +1,8 @@
 import 'babel-polyfill'
-import express from 'express'
-import proxy from 'proxy-middleware'
+import Koa from 'koa'
+import { route, proxy, statik } from 'libk'
+
+const { GET } = route
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -12,13 +14,11 @@ import App from './App'
 import Container, { configureStore } from './Container'
 
 const DEBUG = process.env.NODE_ENV !== 'production'
-const APP_HOST = DEBUG ? 'localhost' : '0.0.0.0'
-const APP_PORT = DEBUG ? 3001 : 80
+const APP_PORT = DEBUG ? 3001 : 8080
 
-const app = express()
-app.use(express.static('static'))
+const app = new Koa()
 
-app.get('/', (req, res) => {
+app.use(GET('/')(async ctx => {
   const store = configureStore({
     todo: {
       todos: ['THING']
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
   let { components, css } = StyleSheet.getCSS()
 
-  res.send(`
+  ctx.body = `
     <!doctype html>
     <html>
       <head>
@@ -49,13 +49,14 @@ app.get('/', (req, res) => {
         <div id="root">${content}</div>
       </body>
     </html>
-  `)
-})
+  `
+}))
+
+app.use(statik('', 'static'))
 
 if (DEBUG) {
-  app.use('/', proxy('http://localhost:3000'))
+  app.use(proxy('http://localhost:3000'))
 }
 
-app.listen(APP_PORT, APP_HOST, err => {
-  console.log('Listening at ' + APP_PORT)
-})
+app.listen(APP_PORT)
+console.log(`Listening at ${APP_PORT}`)

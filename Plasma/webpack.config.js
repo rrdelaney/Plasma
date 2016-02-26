@@ -5,7 +5,7 @@ let path = require('path')
 
 const DEBUG = process.env.NODE_ENV !== 'production'
 
-module.exports = {
+const config = {
   entry: [
     'babel-polyfill',
     path.join(__dirname, 'src', 'client.jsx')
@@ -43,3 +43,12 @@ module.exports = {
     })
   ]
 }
+
+if (!DEBUG) {
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    sourceMap: false,
+    mangle: false
+  }))
+}
+
+module.exports = config
