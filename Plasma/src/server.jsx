@@ -1,6 +1,6 @@
 import 'babel-polyfill'
 import Koa from 'koa'
-import { route, proxy, statik } from 'libk'
+import { route, statik } from 'libk'
 
 const { GET } = route
 
@@ -53,10 +53,6 @@ app.use(GET('/')(async ctx => {
 }))
 
 app.use(statik('', 'static'))
-
-if (DEBUG) {
-  app.use(proxy('http://localhost:3000'))
-}
 
 app.listen(APP_PORT)
 console.log(`Listening at ${APP_PORT}`)

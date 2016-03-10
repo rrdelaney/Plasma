@@ -17,14 +17,17 @@ export default function Heading (props) {
 applyStyles({
   heading: {
     fontFamily: font,
-    fontSize: '30px',
-    fontWeight: 'bold'
+    fontSize: '48px',
+    fontWeight: '300'
   },
   small: {
-    fontSize: '24px'
+    fontSize: '36px'
   },
   large: {
-    fontSize: '48px'
+    fontSize: '64px'
+  },
+  bold: {
+    fontWeight: 'bold'
   },
   underline: {
     textDecoration: 'underline'

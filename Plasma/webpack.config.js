@@ -14,7 +14,7 @@ const config = {
     path: DEBUG ? '_client' : 'target/static',
     filename: 'app.js'
   },
-  devtool: 'source-map',
+  devtool: '#eval-source-map',
   module: {
     loaders: [
       {
@@ -41,7 +41,12 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
     })
-  ]
+  ],
+  devServer: {
+    proxy: {
+      '*': 'http://localhost:3001'
+    }
+  }
 }
 
 if (!DEBUG) {

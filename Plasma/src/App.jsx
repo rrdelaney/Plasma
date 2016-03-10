@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import re from './actions'
-import { TextField, Button } from './quanta'
+import { TextField, Button, Heading } from './quanta'
+import Demo from './quanta/Demo'
 
 @connect(_ => _, re.action)
 export default class App extends Component {
@@ -28,15 +29,7 @@ export default class App extends Component {
     const { actions, todo } = this.props
 
     return <div className='ui container'>
-      <Button onClick={actions.clearTodos}>Clear</Button>
-      <Button onClick={::this.addTodo}>Add</Button>
-      <TextField validate="number" value={this.state.text} onChange={::this.handleUpdate} placeholder='TODO item'/>
-
-      <ul>
-        {todo.todos.map((t) =>
-          <li key={t}>{t}</li>)
-        }
-      </ul>
+      <Demo />
     </div>
   }
 }
