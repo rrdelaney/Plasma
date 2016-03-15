@@ -3,7 +3,7 @@ import { applyStyles } from 'reyle'
 import { font, positive, negative } from './vars'
 
 export default class TextField extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.validateInput = this.validateInput.bind(this)
@@ -15,15 +15,14 @@ export default class TextField extends Component {
     }
   }
 
-  onChange(e) {
+  onChange (e) {
     const value = e.target.value
 
     this.validateInput(value)
+    this.setState({ value })
 
     if (this.props.onChange) {
       this.props.onChange(value)
-    } else {
-      this.setState({ value })
     }
   }
 
@@ -79,6 +78,7 @@ export default class TextField extends Component {
 applyStyles({
   textField: {
     border: 'solid 1px rgb(177, 177, 177)',
+    borderRadius: '.2rem',
     display: 'block',
     padding: '.3rem .3rem .3rem .3rem',
     margin: '1rem 0',
@@ -94,24 +94,15 @@ applyStyles({
     }
   },
   valid: {
-    borderColor: positive,
-    '::before': {
-      content: '"✔"',
-      color: positive
-    }
+    borderColor: positive
   },
   invalid: {
-    borderColor: negative,
-    '::before': {
-      content: '"✖"',
-      color: negative
-    }
+    borderColor: negative
   },
   '%input': {
     border: 'none',
     fontFamily: font,
     fontSize: '16px',
-    marginLeft: '1.3rem',
     width: '18rem',
     ':focus': {
       outline: 'none'

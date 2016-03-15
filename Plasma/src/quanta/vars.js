@@ -23,8 +23,13 @@ export const primary = '#4ECDC4'
 export const secondary = '#FF6B6B'
 export const highlight = '#FFE66D'
 
+export const border = 'rgb(177, 177, 177)'
+
 export const dimPrimary = mod(primary, -0.05)
 export const dimSecondary = mod(secondary, -0.05)
 
 export const darkPrimary = mod(primary, -0.1)
 export const darkSecondary = mod(secondary, -0.1)
+
+export const positive = '#3BBD3B'
+export const negative = '#FFA0A0'
