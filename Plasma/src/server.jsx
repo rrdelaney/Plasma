@@ -1,8 +1,8 @@
 import 'babel-polyfill'
-import Koa from 'koa'
-import { route, statik } from 'libk'
 
-const { GET } = route
+import soular from 'soular'
+import serveStatic from 'soular/static'
+import router from 'soular/react-router'
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -16,9 +16,14 @@ import Container, { configureStore } from './Container'
 const DEBUG = process.env.NODE_ENV !== 'production'
 const APP_PORT = DEBUG ? 3001 : 8080
 
-const app = new Koa()
+const routes = {
+  path: '/',
+  component: App
+}
 
-app.use(GET('/')(async ctx => {
+soular('*')
+
+.use(router(routes, content => {
   const store = configureStore({
     todo: {
       todos: ['THING']
@@ -27,15 +32,15 @@ app.use(GET('/')(async ctx => {
 
   const initialState = JSON.stringify(store.getState())
 
-  const content = renderToString(
+  const app = renderToString(
     <Container store={store}>
-      <App />
+      {content}
     </Container>
   )
 
   let { components, css } = StyleSheet.getCSS()
 
-  ctx.body = `
+  return `
     <!doctype html>
     <html>
       <head>
@@ -46,13 +51,14 @@ app.use(GET('/')(async ctx => {
         </style>
       </head>
       <body>
-        <div id="root">${content}</div>
+        <div id="root">${app}</div>
       </body>
     </html>
   `
 }))
 
-app.use(statik('', 'static'))
+.use(serveStatic('', 'static'))
 
-app.listen(APP_PORT)
-console.log(`Listening at ${APP_PORT}`)
+.listen(APP_PORT)
+
+.on('listening', () => console.log(`Listening at ${APP_PORT}`))

@@ -14,7 +14,7 @@ const config = {
     path: DEBUG ? '_client' : 'target/static',
     filename: 'app.js'
   },
-  devtool: '#eval-source-map',
+  devtool: DEBUG ? '#eval-source-map' : '',
   module: {
     loaders: [
       {
@@ -24,12 +24,6 @@ const config = {
       }, {
         test: /\.json$/,
         loader: 'json'
-      }, {
-        test: /\.(ttf|eot|svg|png)$/,
-        loader: 'file-loader'
-      }, {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&minetype=application/font-woff'
       }
     ]
   },
