@@ -3,7 +3,7 @@
     "module": "commonjs",
     "target": "es2015",
     "jsx": "react",
-    "outDir": ".server",
+    "outDir": "target",
     "sourceMap": true
   },
   "filesGlob": [
@@ -11,8 +11,6 @@
     "typings/index.d.ts"
   ],
   "exclude": [
-    "node_modules",
-    "src/client.tsx"
-  ],
-  "compileOnSave": true
+    "node_modules"
+  ]
 }

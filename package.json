@@ -7,7 +7,9 @@
   "scripts": {
     "build-client": "webpack -p",
     "dev-client": "webpack-dev-server --hot --inline --progress --colors --port 3050",
-    "dev-server": "parallelshell \"tsc -w\" \"nodemon --watch .server .server/server.js\"",
+    "build-server": "tsc",
+    "dev-server": "parallelshell \"tsc -w\" \"nodemon --watch target target/server.js\"",
+    "dev": "parallelshell \"npm run dev-client\" \"npm run dev-server\"",
     "test": "ava"
   },
   "repository": {
@@ -31,6 +33,7 @@
   },
   "dependencies": {
     "koa": "^2.0.0",
+    "koa-static": "^3.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.4.1"
