@@ -5,6 +5,9 @@
   "description": "Frontend for Framework",
   "main": " ",
   "scripts": {
+    "build-client": "webpack -p",
+    "dev-client": "webpack-dev-server --hot --inline --progress --colors --port 3050",
+    "dev-server": "parallelshell \"tsc -w\" \"nodemon --watch .server .server/server.js\"",
     "test": "ava"
   },
   "repository": {
@@ -18,6 +21,8 @@
   },
   "homepage": "https://github.com/rrdelaney/plasma",
   "devDependencies": {
+    "nodemon": "^1.9.2",
+    "parallelshell": "^2.0.0",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
     "typings": "^1.3.0",
@@ -25,7 +30,9 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "koa": "^2.0.0",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1"
   }
 }
