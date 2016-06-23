@@ -2,14 +2,14 @@ import * as React from 'react'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import * as Koa from 'koa'
-import * as serve from 'koa-static'
+import serve from 'koa-static'
 
 import { routes } from './app'
 
 const PORT: number = process.env.PORT || 3051
 const app = new Koa()
 
-function renderClientHTML (body) {
+function renderClientHTML (body: string) {
   return renderToStaticMarkup(<html>
     <body>
       <div id="root" dangerouslySetInnerHTML={{ __html: body }}></div>
@@ -21,7 +21,7 @@ function renderClientHTML (body) {
 app.use(serve('/static'))
 
 app.use((ctx, next) => {
-  match({ routes, location: ctx.path }, (err, redirectLocation, renderProps) => {
+  match({ routes, location: ctx.path }, (err, redirectLocation, renderProps: any) => {
     if (err) {
       ctx.status = 500
       ctx.body = err.message
