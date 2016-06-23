@@ -2,15 +2,15 @@ import * as React from 'react'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import * as Koa from 'koa'
-import serve from 'koa-static'
+import * as serve from 'koa-static'
 
-import { routes } from './app'
+import routes from './app'
 
 const PORT: number = process.env.PORT || 3051
 const app = new Koa()
 
 function renderClientHTML (body: string) {
-  return renderToStaticMarkup(<html>
+  return '<!doctype html>' + renderToStaticMarkup(<html>
     <body>
       <div id="root" dangerouslySetInnerHTML={{ __html: body }}></div>
       <script src='/app.js' />

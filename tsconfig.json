@@ -1,27 +1,13 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es6",
     "jsx": "react",
-    "outDir": "target",
-    "sourceMap": true
+    "outDir": "target"
   },
   "filesGlob": [
     "src/**/*.{ts,tsx}",
     "typings/index.d.ts",
     "lib.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "files": [
-    "src/app.tsx",
-    "src/client.tsx",
-    "src/server.tsx",
-    "typings/index.d.ts",
-    "lib.d.ts"
-  ],
-  "atom": {
-    "rewriteTsconfig": true
-  }
+  ]
 }
