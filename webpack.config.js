@@ -1,34 +1,25 @@
+let path = require('path')
+var webpack = require('webpack')
+
 module.exports = {
-  debug: true,
+  devtool: 'eval',
   entry: [
-    './src/client.tsx'
+    'react-hot-loader/patch',
+    './src/index'
   ],
   output: {
-    path: 'target/static',
-    filename: 'app.js'
-  },
-  resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
   },
   module: {
-    loaders: [
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript',
-        query: {
-          module: 'es6',
-          jsx: 'preserve',
-          useBabel: true,
-          babelOptions: {
-            presets: ['es2015', 'react', 'react-hmre']
-          }
-        }
-      }
-    ]
+    loaders: [{
+      test: /\.jsx?$/,
+      loaders: ['babel'],
+      include: path.join(__dirname, 'src')
+    }]
   },
-  devServer: {
-    proxy: {
-      '*': 'http://localhost:3051'
-    }
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   }
 }
