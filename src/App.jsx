@@ -1,3 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'hzql'
 
-export default () => <h1>aaaaaa!!!</h1>
+export default connect.live(hz => props => ({
+  users: hz('users')
+}))(({ users }) => <pre>Users: {JSON.stringify(users)}</pre>)

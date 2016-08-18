@@ -1,5 +1,6 @@
 let path = require('path')
-var webpack = require('webpack')
+let webpack = require('webpack')
+let DashboardPlugin = require('webpack-dashboard/plugin')
 
 module.exports = {
   devtool: 'eval',
@@ -21,5 +22,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
-  }
+  },
+  plugins: [
+    new DashboardPlugin()
+  ]
 }

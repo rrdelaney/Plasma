@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard | snazzy && ava",
-    "dev": "webpack-dev-server --port 3000 --hot --inline"
+    "dev": "webpack-dashboard -- concurrently -c green,blue --names \"Build,Horizon\" --prefix \"[{name}]\" \"webpack-dev-server --quiet --port 3000 --hot --inline\" \"hz serve --dev\""
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/rrdelaney/plasma",
   "dependencies": {
+    "hzql": "^1.1.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
+    "@horizon/client": "^2.0.0-beta-6",
     "ava": "^0.15.2",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
@@ -29,10 +31,13 @@
     "babel-preset-es2015-webpack": "^6.4.2",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
+    "concurrently": "^2.2.0",
+    "horizon-devtools": "^1.0.0",
     "react-hot-loader": "^3.0.0-beta.2",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2",
     "webpack": "^1.13.1",
+    "webpack-dashboard": "^0.1.1",
     "webpack-dev-server": "^1.14.1"
   }
 }
