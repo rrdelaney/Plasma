@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server'
 import Fiber from 'fibers'
 import ws from 'ws'
 import Horizon from '@horizon/client'
-import { Provider } from './hzql'
+import { Provider } from 'hzql'
 import App from './App'
 
 global.WebSocket = ws

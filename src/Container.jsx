@@ -1,6 +1,6 @@
 import React from 'react'
 import Horizon from '@horizon/client'
-import { Provider } from './hzql'
+import { Provider } from 'hzql'
 import { createDevTools } from 'horizon-devtools'
 
 const horizon = new Horizon({ host: 'localhost:8181' })
