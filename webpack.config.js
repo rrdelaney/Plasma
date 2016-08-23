@@ -24,6 +24,6 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   plugins: [
-    new DashboardPlugin()
+    // new DashboardPlugin()
   ]
 }
