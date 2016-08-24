@@ -1,3 +1,6 @@
+import 'bootstrap/dist/js/bootstrap'
+import './app.scss'
+
 import { AppContainer } from 'react-hot-loader'
 import React from 'react'
 import ReactDOM from 'react-dom'
