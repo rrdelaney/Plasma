@@ -28,5 +28,10 @@ module.exports = {
   },
   plugins: [
     // new DashboardPlugin()
-  ]
+  ],
+  devServer: {
+    proxy: {
+      '*': 'http://localhost:3001'
+    }
+  }
 }
