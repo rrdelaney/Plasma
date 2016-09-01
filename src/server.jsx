@@ -7,16 +7,18 @@ import Horizon from '@horizon/client'
 import soular from 'soular'
 import serveStatic from 'soular/static'
 import router from 'soular/react-router'
+import { GET } from 'soular/route'
 import Container from './Container'
 import App from './App'
 
 global.WebSocket = ws
 
-const Page = content => `
+const Page = (content, cache) => `
   <!doctype html>
   <html>
     <head>
       <title>Plasma</title>
+      <script>var $HZ_CACHE = ${JSON.stringify(cache)}</script>
     </head>
     <body>
       <div id='root'>${content}</div>
@@ -28,7 +30,7 @@ const Page = content => `
 `
 
 soular('*')
-  .use(() => new Promise(resolve => {
+  .use(GET('/')(() => new Promise(resolve => {
     const hz = new Horizon({ host: 'localhost:8181' })
 
     Fiber(() => {
@@ -38,8 +40,8 @@ soular('*')
         </AppContainer>
       </Container>)
 
-      resolve({ body: Page(res) })
+      resolve({ body: Page(res, hz.$$__hzql_cache_string) })
       hz.disconnect()
     }).run()
-  }))
+  })))
   .listen(3001)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'hzql'
+import { connect } from './hzql'
 
 @connect.await(hz => props => ({
   info: hz('info').findAll({ username: props.username })
