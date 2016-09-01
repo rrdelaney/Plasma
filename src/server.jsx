@@ -17,6 +17,7 @@ const Page = (content, cache) => `
   <!doctype html>
   <html>
     <head>
+      <meta charset="UTF-8">
       <title>Plasma</title>
       <script>var $HZ_CACHE = ${JSON.stringify(cache)}</script>
     </head>

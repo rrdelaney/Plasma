@@ -37,6 +37,7 @@ export const connect = (query, shouldWait, isLive) => Consumer => {
 
       this.state = { results: null }
       this.version = version
+      this.subscription = undefined
     }
 
     componentWillMount () {
@@ -67,10 +68,16 @@ export const connect = (query, shouldWait, isLive) => Consumer => {
         }
       })
 
+      this.subscription = sub
+
       if (this.context.Fiber) {
         fiber = this.context.Fiber.current
         this.context.Fiber.yield()
       }
+    }
+
+    componentWillUnmount () {
+      this.subscription.unsubscribe()
     }
 
     render () {
