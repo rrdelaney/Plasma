@@ -97,6 +97,7 @@ export function createDevTools (horizon) {
 
     componentWillUnmount() {
       if (typeof window !== 'undefined') window.removeEventListener('keydown', this.handleKeyDown)
+      devtools.update = () => null
     }
 
     handleKeyDown (e) {

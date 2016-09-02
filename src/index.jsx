@@ -11,9 +11,7 @@ const hz = new Horizon({ host: 'localhost:8181' })
 const root = document.getElementById('root')
 
 ReactDOM.render(<Container horizon={hz} cache={window.$HZ_CACHE}>
-  <AppContainer>
-    <App />
-  </AppContainer>
+  <App />
 </Container>, root)
 
 if (module.hot) {
@@ -21,9 +19,7 @@ if (module.hot) {
     const NextApp = require('./App').default
 
     ReactDOM.render(<Container horizon={hz}>
-      <AppContainer>
-        <NextApp />
-      </AppContainer>
+      <NextApp />
     </Container>, root)
   })
 }

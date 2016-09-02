@@ -1,5 +1,6 @@
 import React from 'react'
 import Horizon from '@horizon/client'
+import { AppContainer } from 'react-hot-loader'
 import { Provider } from './hzql'
 import { createDevTools } from './horizon-devtools'
 
@@ -10,7 +11,9 @@ export default ({ children, horizon, ...props }) => {
   return <div>
     <DevTools />
     <Provider horizon={horizon} {...props}>
-      {children}
+      <AppContainer>
+        {children}
+      </AppContainer>
     </Provider>
   </div>
 }

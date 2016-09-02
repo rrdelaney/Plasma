@@ -36,9 +36,7 @@ soular('*')
 
     Fiber(() => {
       let res = renderToString(<Container horizon={hz} fiber={Fiber}>
-        <AppContainer>
-          <App />
-        </AppContainer>
+        <App />
       </Container>)
 
       resolve({ body: Page(res, hz.$$__hzql_cache_string) })
