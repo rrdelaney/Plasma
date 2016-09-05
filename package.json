@@ -20,8 +20,8 @@
   "dependencies": {
     "@horizon/client": "^2.0.0",
     "fibers": "^1.0.13",
-    "horizon-devtools": "^1.0.4",
-    "hzql": "^1.4.0",
+    "horizon-devtools": "^1.1.0-0",
+    "hzql": "^1.5.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-router": "^2.7.0",

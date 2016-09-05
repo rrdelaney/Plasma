@@ -1,27 +1,22 @@
 import React, { Component } from 'react'
-import { connect } from './hzql'
+import { connect } from 'hzql'
 
-@connect.await(hz => props => ({
-  info: hz('info').findAll({ username: props.username })
-}))
-class UserInfo extends Component {
-  render () {
-    return <pre>{JSON.stringify(this.props.info)}</pre>
-  }
-}
-
-@connect.live(hz => props => ({
-  users: hz('users')
+@connect.liveAwait(hz => props => ({
+  deltas: hz('delta')
 }))
 export default class App extends Component {
+  newDelta (e) {
+    this.props.horizon('delta').store({
+      text: e.key
+    })
+  }
+
+  componentDidMount () {
+    if (typeof window !== 'undefined') window.addEventListener('keydown', ::this.newDelta)
+  }
+
   render () {
-    return <div>
-      {!this.props.users ? 'Loading' : this.props.users.map(u =>
-        <div key={u.id}>
-          <h3>Username: {u.id}</h3>
-          <UserInfo username={u.id} />
-        </div>
-      )}
-    </div>
+    let text = this.props.deltas.map(d => d.text).join('->')
+    return <textarea value={text} />
   }
 }
