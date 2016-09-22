@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "standard | snazzy && ava",
+    "test": "standard | snazzy",
     "dev": "concurrently -k -c green,blue,yellow --names \"Client,Horizon,Server\" --prefix \"[{name}]\" \"webpack-dev-server --port 3000 --hot --inline\" \"hz serve --dev\" \"nodemon --exec babel-node --watch src src/server.jsx\""
   },
   "repository": {
@@ -19,8 +19,9 @@
   "homepage": "https://github.com/rrdelaney/plasma",
   "dependencies": {
     "@horizon/client": "^2.0.0",
+    "draft-js": "^0.9.1",
     "fibers": "^1.0.13",
-    "horizon-devtools": "^1.1.0-0",
+    "horizon-devtools": "^1.1.0",
     "hzql": "^1.5.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
@@ -29,7 +30,6 @@
     "ws": "^1.1.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
     "babel-cli": "^6.14.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
@@ -41,6 +41,7 @@
     "bootstrap": "^4.0.0-alpha.3",
     "concurrently": "^2.2.0",
     "css-loader": "^0.23.1",
+    "flow-bin": "^0.32.0",
     "node-sass": "^3.8.0",
     "nodemon": "^1.10.2",
     "react-hot-loader": "^3.0.0-beta.2",
@@ -51,5 +52,8 @@
     "webpack": "^1.13.1",
     "webpack-dashboard": "^0.1.1",
     "webpack-dev-server": "^1.14.1"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

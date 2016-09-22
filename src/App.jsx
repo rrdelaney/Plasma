@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Editor, EditorState } from 'draft-js'
 import { connect } from 'hzql'
 
 @connect.liveAwait(hz => props => ({

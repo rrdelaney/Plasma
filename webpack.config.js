@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'react-hot-loader/patch',
-    './src/index'
+    './src/client'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
